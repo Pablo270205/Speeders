@@ -1,8 +1,8 @@
-const CACHE_NAME = 'speeders-v1';
+const CACHE_NAME = 'speeders-v2';
 const ASSETS = [
-  '/',
-  '/index.html',
-  '/manifest.json'
+  '/Speeders/',
+  '/Speeders/index.html',
+  '/Speeders/manifest.json'
 ];
 
 // Instalar y cachear archivos
