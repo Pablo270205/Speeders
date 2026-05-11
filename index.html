@@ -687,9 +687,6 @@
 
   <script>
     // Register service worker
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => navigator.serviceWorker.register('sw.js'));
-    }
 
     function goTo(screenId, activeNav) {
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
