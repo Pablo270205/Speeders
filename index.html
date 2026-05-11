@@ -89,6 +89,7 @@
     .map-preview{background:#E8F4F8;border-radius:var(--r);height:110px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;cursor:pointer}
     .map-preview svg{width:100%;height:100%;position:absolute;inset:0}
     .map-overlay-btn{position:relative;z-index:2;background:#fff;border-radius:var(--r-full);padding:8px 16px;display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--teal);box-shadow:0 2px 12px rgba(0,0,0,.15)}
+    /* SEARCH */
     .search-header{padding:8px 20px 16px;background:var(--surface);border-bottom:1px solid var(--border);flex-shrink:0}
     .search-bar-row{display:flex;align-items:center;gap:12px;margin-bottom:12px}
     .back-btn{font-size:22px;color:var(--text);cursor:pointer;padding:4px}
@@ -100,13 +101,15 @@
     .route-divider{height:1px;background:var(--border);margin:0 16px}
     .route-row input{border:none;outline:none;font-size:15px;font-family:var(--sans);color:var(--text);flex:1;background:transparent}
     .route-row input::placeholder{color:var(--text-3)}
-    .suggestion-item{display:flex;align-items:center;gap:14px;padding:14px 20px;cursor:pointer;border-bottom:1px solid var(--border)}
+    .suggestion-item{display:flex;align-items:center;gap:14px;padding:14px 20px;cursor:pointer;border-bottom:1px solid var(--border);transition:background .15s}
+    .suggestion-item:active{background:var(--teal-light)}
     .suggestion-item:last-child{border-bottom:none}
     .sug-icon{width:38px;height:38px;border-radius:var(--r-sm);background:var(--teal-light);display:flex;align-items:center;justify-content:center;flex-shrink:0}
     .sug-icon i{font-size:18px;color:var(--teal)}
     .sug-text .name{font-size:15px;font-weight:500;color:var(--text)}
     .sug-text .addr{font-size:13px;color:var(--text-3);margin-top:1px}
     .sug-dist{font-size:13px;color:var(--text-3);margin-left:auto}
+    /* RESULTS */
     .results-map{height:200px;background:#D6EAF0;position:relative;flex-shrink:0}
     .results-map svg{width:100%;height:100%}
     .map-info-pill{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);background:#fff;border-radius:var(--r-full);padding:8px 16px;display:flex;align-items:center;gap:8px;box-shadow:0 4px 16px rgba(0,0,0,.15);white-space:nowrap}
@@ -114,8 +117,10 @@
     .map-info-pill span{font-size:13px;font-weight:600;color:var(--text)}
     .results-sheet{flex:1;background:var(--bg);border-radius:24px 24px 0 0;margin-top:-20px;padding:20px;padding-bottom:100px}
     .results-handle{width:36px;height:4px;background:var(--border);border-radius:2px;margin:0 auto 16px}
-    .route-option{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:12px;cursor:pointer}
+    .route-option{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:12px;cursor:pointer;transition:all .2s}
+    .route-option:active{transform:scale(.99)}
     .route-option.recommended{border-color:var(--teal)}
+    .route-option.hidden{display:none}
     .route-opt-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px}
     .route-opt-time{font-family:var(--serif);font-size:28px;color:var(--text);line-height:1}
     .route-opt-time span{font-size:16px}
@@ -123,7 +128,7 @@
     .route-opt-price{font-size:18px;font-weight:700;color:var(--teal)}
     .route-opt-price .subtext{font-size:12px;font-weight:400;color:var(--text-3);display:block;text-align:right}
     .filter-row{display:flex;gap:8px;margin-bottom:16px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
-    .filter-chip{border:1px solid var(--border);border-radius:var(--r-full);padding:6px 14px;font-size:13px;color:var(--text-2);white-space:nowrap;cursor:pointer;background:var(--surface);display:flex;align-items:center;gap:5px;flex-shrink:0}
+    .filter-chip{border:1px solid var(--border);border-radius:var(--r-full);padding:6px 14px;font-size:13px;color:var(--text-2);white-space:nowrap;cursor:pointer;background:var(--surface);display:flex;align-items:center;gap:5px;flex-shrink:0;transition:all .2s}
     .filter-chip.active{background:var(--teal);color:#fff;border-color:var(--teal)}
     .stop-node{width:8px;height:8px;border-radius:50%;background:var(--teal);flex-shrink:0}
     .stop-line{flex:1;height:2px;background:var(--teal-light);border-radius:1px;position:relative;overflow:hidden}
@@ -131,6 +136,7 @@
     .route-opt-stops{display:flex;align-items:center;gap:6px;margin-top:10px}
     .stop-labels{display:flex;justify-content:space-between;margin-top:6px}
     .stop-label{font-size:11px;color:var(--text-3)}
+    /* BOOKING */
     .booking-header{background:var(--teal-deeper);padding:0 20px 24px;border-radius:0 0 24px 24px;flex-shrink:0}
     .booking-header .status-bar .time,.booking-header .status-icons i{color:#fff}
     .booking-title{font-family:var(--serif);font-size:22px;color:#fff;margin-bottom:4px}
@@ -165,15 +171,16 @@
     .price-row.total .label{font-weight:700;color:var(--text);font-size:15px}
     .price-row.total .value{font-weight:700;color:var(--teal);font-size:16px}
     .confirm-btn-area{padding:16px 20px 100px}
-    .tracking-map{height:300px;background:#D9EEF5;position:relative;flex-shrink:0}
+    /* TRACKING */
+    .tracking-map{height:260px;background:#D9EEF5;position:relative;flex-shrink:0}
     .tracking-map svg{width:100%;height:100%}
-    .eta-pill{position:absolute;top:54px;left:50%;transform:translateX(-50%);background:var(--teal);border-radius:var(--r-full);padding:10px 20px;color:#fff;font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px;box-shadow:0 4px 16px rgba(8,145,178,.4);white-space:nowrap}
-    .eta-pill .countdown{font-family:var(--serif);font-size:18px}
+    .eta-pill{position:absolute;top:54px;left:50%;transform:translateX(-50%);background:var(--teal);border-radius:var(--r-full);padding:10px 20px;color:#fff;font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px;box-shadow:0 4px 16px rgba(8,145,178,.4);white-space:nowrap;transition:all .5s}
+    .eta-pill.success{background:var(--success)}
     .tracking-sheet{flex:1;background:var(--surface);border-radius:24px 24px 0 0;margin-top:-20px;padding:20px;padding-bottom:90px}
     .tracking-steps{display:flex;flex-direction:column}
     .tracking-step{display:flex;gap:14px}
     .step-left{display:flex;flex-direction:column;align-items:center;width:32px;flex-shrink:0}
-    .step-icon{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .step-icon{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .5s}
     .step-icon.done{background:var(--teal)}
     .step-icon.active{background:var(--teal-light);border:2px solid var(--teal)}
     .step-icon.pending{background:var(--bg);border:2px solid var(--border)}
@@ -181,7 +188,7 @@
     .step-icon.done i{color:#fff}
     .step-icon.active i{color:var(--teal)}
     .step-icon.pending i{color:var(--text-3)}
-    .step-line{flex:1;width:2px;background:var(--teal-light);margin:4px 0;min-height:28px}
+    .step-line{flex:1;width:2px;background:var(--teal-light);margin:4px 0;min-height:28px;transition:background .5s}
     .step-line.done-line{background:var(--teal)}
     .step-content{padding-bottom:24px;padding-top:4px}
     .step-title{font-size:15px;font-weight:600;color:var(--text)}
@@ -190,6 +197,13 @@
     .speeder-info{background:var(--bg);border-radius:var(--r);padding:14px;margin-bottom:16px;display:flex;align-items:center;gap:14px}
     .speeder-avatar{width:46px;height:46px;border-radius:var(--r-sm);background:var(--teal-light);display:flex;align-items:center;justify-content:center}
     .speeder-avatar i{font-size:24px;color:var(--teal)}
+    /* ARRIVED BANNER */
+    .arrived-banner{background:var(--success);border-radius:var(--r);padding:20px;margin-bottom:16px;text-align:center;display:none}
+    .arrived-banner.show{display:block}
+    .arrived-banner i{font-size:36px;color:#fff;margin-bottom:8px;display:block}
+    .arrived-banner h3{font-family:var(--serif);font-size:22px;color:#fff;margin-bottom:4px}
+    .arrived-banner p{font-size:14px;color:rgba(255,255,255,.8)}
+    /* HISTORY */
     .history-item{background:var(--surface);border-radius:var(--r);border:1px solid var(--border);padding:14px 16px;margin-bottom:10px;cursor:pointer}
     .hist-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
     .hist-date{font-size:12px;color:var(--text-3)}
@@ -202,6 +216,7 @@
     .empty-state{text-align:center;padding:40px 20px;color:var(--text-3)}
     .empty-state i{font-size:48px;margin-bottom:12px;display:block}
     .empty-state p{font-size:15px}
+    /* PROFILE */
     .profile-hero{background:var(--teal-deeper);padding:0 20px 24px;text-align:center;border-radius:0 0 28px 28px;flex-shrink:0}
     .profile-hero .status-bar .time,.profile-hero .status-icons i{color:#fff}
     .avatar-circle{width:72px;height:72px;border-radius:50%;background:var(--teal);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-family:var(--serif);font-size:26px;color:#fff;border:3px solid rgba(255,255,255,.2)}
@@ -223,6 +238,9 @@
     .menu-chevron{font-size:16px;color:var(--text-3);margin-left:auto}
     @keyframes pulse-ring{0%,100%{opacity:.8}50%{opacity:.4}}
     .pulse{animation:pulse-ring 2s ease infinite}
+    /* Speeder animation */
+    @keyframes moveRight{0%{transform:translateX(0)}100%{transform:translateX(240px)}}
+    .speeder-moving{animation:moveRight 4s linear forwards}
   </style>
 </head>
 <body>
@@ -300,10 +318,10 @@
   <div class="content">
     <div class="section-title">Rutas recientes</div>
     <div class="quick-routes">
-      <div class="quick-chip" onclick="selectDestino('Facultad de Informática')"><i class="ti ti-school"></i><span>Facultad</span></div>
-      <div class="quick-chip" onclick="selectDestino('Hospital Clínico')"><i class="ti ti-building-hospital"></i><span>H. Clínico</span></div>
-      <div class="quick-chip" onclick="selectDestino('Plaza Mayor')"><i class="ti ti-map-pin"></i><span>Plaza Mayor</span></div>
-      <div class="quick-chip" onclick="selectDestino('Estación')"><i class="ti ti-train"></i><span>Estación</span></div>
+      <div class="quick-chip" onclick="selectDestino('Facultad de Informática','2.1 km','Línea 3',12,1.80)"><i class="ti ti-school"></i><span>Facultad</span></div>
+      <div class="quick-chip" onclick="selectDestino('Hospital Clínico','1.4 km','Línea 1',9,1.40)"><i class="ti ti-building-hospital"></i><span>H. Clínico</span></div>
+      <div class="quick-chip" onclick="selectDestino('Plaza Mayor','0.8 km','Línea 2',6,1.20)"><i class="ti ti-map-pin"></i><span>Plaza Mayor</span></div>
+      <div class="quick-chip" onclick="selectDestino('Estación','3.2 km','Línea 3',18,2.10)"><i class="ti ti-train"></i><span>Estación</span></div>
     </div>
     <div class="section-title">Estado de la red</div>
     <div class="live-card" onclick="goTo('screen-tracking')">
@@ -315,7 +333,7 @@
       <div class="live-badge pulse">EN VIVO</div>
     </div>
     <div class="section-title">Mapa de paradas</div>
-    <div class="map-preview" onclick="goTo('screen-tracking')">
+    <div class="map-preview" onclick="goTo('screen-search','search')">
       <svg viewBox="0 0 335 110" xmlns="http://www.w3.org/2000/svg">
         <rect width="335" height="110" fill="#D9EEF5"/>
         <line x1="0" y1="55" x2="335" y2="55" stroke="#B0D8E8" stroke-width="8"/>
@@ -343,20 +361,26 @@
 <div class="screen" id="screen-search">
   <div class="status-bar" style="background:var(--surface)"><span class="time">9:41</span><div class="status-icons"><i class="ti ti-wifi"></i><i class="ti ti-battery-2"></i></div></div>
   <div class="search-header">
-    <div class="search-bar-row"><span class="back-btn" onclick="goTo('screen-home','home')"><i class="ti ti-arrow-left"></i></span><span style="font-family:var(--serif);font-size:20px;color:var(--text)">Nueva ruta</span></div>
+    <div class="search-bar-row">
+      <span class="back-btn" onclick="goTo('screen-home','home')"><i class="ti ti-arrow-left"></i></span>
+      <span style="font-family:var(--serif);font-size:20px;color:var(--text)">Nueva ruta</span>
+    </div>
     <div class="route-inputs">
-      <div class="route-row"><div class="route-dot origin"></div><input type="text" value="Gran Vía, 45" placeholder="Origen"></div>
+      <div class="route-row"><div class="route-dot origin"></div><input type="text" value="Gran Vía, 45" placeholder="Origen" readonly></div>
       <div class="route-divider"></div>
-      <div class="route-row"><div class="route-dot dest"></div><input type="text" placeholder="¿A dónde vas?" id="search-dest"></div>
+      <div class="route-row"><div class="route-dot dest"></div><input type="text" placeholder="¿A dónde vas?" id="search-dest-input" oninput="filterSuggestions(this.value)"></div>
     </div>
   </div>
   <div style="flex:1;background:var(--surface)">
     <div style="padding:16px 20px 8px;font-size:13px;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:.08em">Sugerencias</div>
-    <div class="suggestion-item" onclick="selectDestino('Facultad de Informática')"><div class="sug-icon"><i class="ti ti-school"></i></div><div class="sug-text"><div class="name">Facultad de Informática</div><div class="addr">Campus Miguel de Unamuno</div></div><div class="sug-dist">2.1 km</div></div>
-    <div class="suggestion-item" onclick="selectDestino('Hospital Clínico')"><div class="sug-icon"><i class="ti ti-building-hospital"></i></div><div class="sug-text"><div class="name">Hospital Clínico</div><div class="addr">Paseo de San Vicente</div></div><div class="sug-dist">1.4 km</div></div>
-    <div class="suggestion-item" onclick="selectDestino('Plaza Mayor')"><div class="sug-icon"><i class="ti ti-building"></i></div><div class="sug-text"><div class="name">Plaza Mayor</div><div class="addr">Centro Histórico</div></div><div class="sug-dist">0.8 km</div></div>
-    <div class="suggestion-item" onclick="selectDestino('Estación de Salamanca')"><div class="sug-icon"><i class="ti ti-train"></i></div><div class="sug-text"><div class="name">Estación de Salamanca</div><div class="addr">Paseo de la Estación</div></div><div class="sug-dist">3.2 km</div></div>
-    <div class="suggestion-item" onclick="selectDestino('El Corte Inglés')"><div class="sug-icon"><i class="ti ti-shopping-bag"></i></div><div class="sug-text"><div class="name">El Corte Inglés</div><div class="addr">Azafranal</div></div><div class="sug-dist">1.1 km</div></div>
+    <div id="suggestions-list">
+      <div class="suggestion-item" data-name="Facultad de Informática" data-addr="Campus Miguel de Unamuno" data-dist="2.1 km" data-linea="Línea 3" data-dur="12" data-precio="1.80" onclick="selectDestino('Facultad de Informática','2.1 km','Línea 3',12,1.80)"><div class="sug-icon"><i class="ti ti-school"></i></div><div class="sug-text"><div class="name">Facultad de Informática</div><div class="addr">Campus Miguel de Unamuno</div></div><div class="sug-dist">2.1 km</div></div>
+      <div class="suggestion-item" data-name="Hospital Clínico" data-addr="Paseo de San Vicente" data-dist="1.4 km" data-linea="Línea 1" data-dur="9" data-precio="1.40" onclick="selectDestino('Hospital Clínico','1.4 km','Línea 1',9,1.40)"><div class="sug-icon"><i class="ti ti-building-hospital"></i></div><div class="sug-text"><div class="name">Hospital Clínico</div><div class="addr">Paseo de San Vicente</div></div><div class="sug-dist">1.4 km</div></div>
+      <div class="suggestion-item" data-name="Plaza Mayor" data-addr="Centro Histórico" data-dist="0.8 km" data-linea="Línea 2" data-dur="6" data-precio="1.20" onclick="selectDestino('Plaza Mayor','0.8 km','Línea 2',6,1.20)"><div class="sug-icon"><i class="ti ti-building"></i></div><div class="sug-text"><div class="name">Plaza Mayor</div><div class="addr">Centro Histórico</div></div><div class="sug-dist">0.8 km</div></div>
+      <div class="suggestion-item" data-name="Estación de Salamanca" data-addr="Paseo de la Estación" data-dist="3.2 km" data-linea="Línea 3" data-dur="18" data-precio="2.10" onclick="selectDestino('Estación de Salamanca','3.2 km','Línea 3',18,2.10)"><div class="sug-icon"><i class="ti ti-train"></i></div><div class="sug-text"><div class="name">Estación de Salamanca</div><div class="addr">Paseo de la Estación</div></div><div class="sug-dist">3.2 km</div></div>
+      <div class="suggestion-item" data-name="El Corte Inglés" data-addr="Azafranal" data-dist="1.1 km" data-linea="Línea 2" data-dur="8" data-precio="1.20" onclick="selectDestino('El Corte Inglés','1.1 km','Línea 2',8,1.20)"><div class="sug-icon"><i class="ti ti-shopping-bag"></i></div><div class="sug-text"><div class="name">El Corte Inglés</div><div class="addr">Azafranal</div></div><div class="sug-dist">1.1 km</div></div>
+      <div class="suggestion-item" data-name="Campus Unamuno" data-addr="Universidad de Salamanca" data-dist="2.3 km" data-linea="Línea 3" data-dur="13" data-precio="1.80" onclick="selectDestino('Campus Unamuno','2.3 km','Línea 3',13,1.80)"><div class="sug-icon"><i class="ti ti-building-community"></i></div><div class="sug-text"><div class="name">Campus Unamuno</div><div class="addr">Universidad de Salamanca</div></div><div class="sug-dist">2.3 km</div></div>
+    </div>
   </div>
   <div class="nav-bar">
     <div class="nav-item" onclick="goTo('screen-home','home')"><i class="ti ti-home"></i><span>Inicio</span></div>
@@ -379,7 +403,7 @@
       <text x="50" y="75" text-anchor="middle" font-size="11" fill="#0E7490" font-family="sans-serif" font-weight="600">Origen</text>
       <text x="340" y="75" text-anchor="middle" font-size="11" fill="#164E63" font-family="sans-serif" font-weight="600" id="result-dest-label">Destino</text>
     </svg>
-    <div class="map-info-pill"><i class="ti ti-route"></i><span>Carril magnético · Línea 3</span></div>
+    <div class="map-info-pill"><i class="ti ti-route"></i><span id="result-linea-pill">Carril magnético</span></div>
     <div style="position:absolute;top:10px;left:14px;cursor:pointer" onclick="goTo('screen-search','search')">
       <div style="background:#fff;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.15)"><i class="ti ti-arrow-left" style="font-size:18px;color:var(--text)"></i></div>
     </div>
@@ -391,26 +415,39 @@
       <div class="chip"><i class="ti ti-clock"></i> Ahora</div>
     </div>
     <div class="filter-row">
-      <div class="filter-chip active"><i class="ti ti-bolt"></i> Más rápido</div>
-      <div class="filter-chip"><i class="ti ti-currency-euro"></i> Más barato</div>
-      <div class="filter-chip"><i class="ti ti-accessible"></i> Accesible</div>
+      <div class="filter-chip active" id="filter-rapido" onclick="applyFilter('rapido')"><i class="ti ti-bolt"></i> Más rápido</div>
+      <div class="filter-chip" id="filter-barato" onclick="applyFilter('barato')"><i class="ti ti-currency-euro"></i> Más barato</div>
+      <div class="filter-chip" id="filter-accesible" onclick="applyFilter('accesible')"><i class="ti ti-accessible"></i> Accesible</div>
     </div>
-    <div class="route-option recommended" onclick="goTo('screen-booking')">
+    <!-- Opción 1: Más rápido -->
+    <div class="route-option recommended" id="opt-rapido" onclick="selectOption(12,1.80)">
       <div class="chip" style="margin-bottom:10px;font-size:11px">⭐ Recomendado</div>
       <div class="route-opt-header">
-        <div><div class="route-opt-time">12<span> min</span></div><div class="route-opt-meta">Salida en 3 min · Parada A3</div></div>
-        <div style="text-align:right"><div class="route-opt-price">1,80 €<span class="subtext">Precio fijo</span></div></div>
+        <div><div class="route-opt-time" id="opt1-time">12<span> min</span></div><div class="route-opt-meta">Salida en 3 min · Parada A3</div></div>
+        <div style="text-align:right"><div class="route-opt-price" id="opt1-price">1,80 €<span class="subtext">Precio fijo</span></div></div>
       </div>
       <div class="route-opt-stops"><div class="stop-node"></div><div class="stop-line"><div class="stop-line-fill"></div></div><div class="stop-node"></div><div class="stop-line"><div class="stop-line-fill" style="width:90%"></div></div><div class="stop-node"></div></div>
       <div class="stop-labels"><span class="stop-label">Gran Vía</span><span class="stop-label">P. Mayor</span><span class="stop-label" id="stop-dest">Facultad</span></div>
     </div>
-    <div class="route-option" onclick="goTo('screen-booking')">
+    <!-- Opción 2: Más barato -->
+    <div class="route-option hidden" id="opt-barato" onclick="selectOption(20,0.90)">
+      <div class="chip" style="margin-bottom:10px;font-size:11px;background:#FEF3C7;color:#92400E">💰 Más económico</div>
       <div class="route-opt-header">
-        <div><div class="route-opt-time">18<span> min</span></div><div class="route-opt-meta">Salida en 8 min · Parada A3</div></div>
-        <div style="text-align:right"><div class="route-opt-price">1,40 €<span class="subtext">Precio reducido</span></div></div>
+        <div><div class="route-opt-time">20<span> min</span></div><div class="route-opt-meta">Salida en 10 min · Parada A1</div></div>
+        <div style="text-align:right"><div class="route-opt-price">0,90 €<span class="subtext">Tarifa valle</span></div></div>
       </div>
-      <div class="route-opt-stops"><div class="stop-node" style="background:var(--text-3)"></div><div class="stop-line" style="background:var(--bg)"></div><div class="stop-node" style="background:var(--text-3)"></div><div class="stop-line" style="background:var(--bg)"></div><div class="stop-node" style="background:var(--text-3)"></div><div class="stop-line" style="background:var(--bg)"></div><div class="stop-node" style="background:var(--text-3)"></div></div>
-      <div class="stop-labels"><span class="stop-label">Gran Vía</span><span class="stop-label">Azafranal</span><span class="stop-label">Campus</span><span class="stop-label" id="stop-dest2">Facultad</span></div>
+      <div class="route-opt-stops"><div class="stop-node" style="background:var(--warning)"></div><div class="stop-line" style="background:#FEF3C7"><div class="stop-line-fill" style="background:var(--warning);width:50%"></div></div><div class="stop-node" style="background:var(--warning)"></div><div class="stop-line" style="background:#FEF3C7"><div class="stop-line-fill" style="background:var(--warning);width:50%"></div></div><div class="stop-node" style="background:var(--warning)"></div><div class="stop-line" style="background:#FEF3C7"><div class="stop-line-fill" style="background:var(--warning);width:50%"></div></div><div class="stop-node" style="background:var(--warning)"></div></div>
+      <div class="stop-labels"><span class="stop-label">Gran Vía</span><span class="stop-label">Azafranal</span><span class="stop-label">Campus</span><span class="stop-label" id="stop-dest-barato">Facultad</span></div>
+    </div>
+    <!-- Opción 3: Accesible -->
+    <div class="route-option hidden" id="opt-accesible" onclick="selectOption(14,1.80)">
+      <div class="chip" style="margin-bottom:10px;font-size:11px;background:#D1FAE5;color:#065F46">♿ Speeder adaptado</div>
+      <div class="route-opt-header">
+        <div><div class="route-opt-time">14<span> min</span></div><div class="route-opt-meta">Salida en 5 min · Parada A3 (accesible)</div></div>
+        <div style="text-align:right"><div class="route-opt-price">1,80 €<span class="subtext">Precio fijo</span></div></div>
+      </div>
+      <div class="route-opt-stops"><div class="stop-node" style="background:var(--success)"></div><div class="stop-line" style="background:#D1FAE5"><div class="stop-line-fill" style="background:var(--success);width:80%"></div></div><div class="stop-node" style="background:var(--success)"></div><div class="stop-line" style="background:#D1FAE5"><div class="stop-line-fill" style="background:var(--success);width:80%"></div></div><div class="stop-node" style="background:var(--success)"></div></div>
+      <div class="stop-labels"><span class="stop-label">Gran Vía</span><span class="stop-label">P. Mayor</span><span class="stop-label" id="stop-dest-acc">Facultad</span></div>
     </div>
   </div>
 </div>
@@ -425,11 +462,11 @@
     </div>
     <div class="booking-sub" id="booking-route">Gran Vía → Destino</div>
     <div class="booking-summary">
-      <div><div class="bsumm-val">12 min</div><div class="bsumm-lbl">Duración</div></div>
+      <div><div class="bsumm-val" id="booking-dur">12 min</div><div class="bsumm-lbl">Duración</div></div>
       <div style="width:1px;background:rgba(255,255,255,.1)"></div>
       <div><div class="bsumm-val">98%</div><div class="bsumm-lbl">Puntualidad</div></div>
       <div style="width:1px;background:rgba(255,255,255,.1)"></div>
-      <div><div class="bsumm-val">2.1 km</div><div class="bsumm-lbl">Distancia</div></div>
+      <div><div class="bsumm-val" id="booking-dist">2.1 km</div><div class="bsumm-lbl">Distancia</div></div>
     </div>
   </div>
   <div class="time-section">
@@ -451,46 +488,65 @@
     <div class="price-row"><span class="label">Tarifa base</span><span class="value">1,50 €</span></div>
     <div class="price-row"><span class="label">Suplemento hora punta</span><span class="value">0,30 €</span></div>
     <div class="price-row"><span class="label">Descuento estudiante</span><span class="value" style="color:var(--success)">-0,00 €</span></div>
-    <div class="price-row total"><span class="label">Total</span><span class="value">1,80 €</span></div>
+    <div class="price-row total"><span class="label">Total</span><span class="value" id="booking-total">1,80 €</span></div>
   </div>
   <div class="confirm-btn-area">
-    <button class="btn-primary" onclick="confirmarReserva()"><i class="ti ti-check"></i> Reservar por 1,80 €</button>
+    <button class="btn-primary" onclick="confirmarReserva()"><i class="ti ti-check"></i> <span id="btn-reservar">Reservar por 1,80 €</span></button>
   </div>
 </div>
 
 <!-- TRACKING -->
 <div class="screen" id="screen-tracking">
   <div class="tracking-map">
-    <svg viewBox="0 0 375 300" xmlns="http://www.w3.org/2000/svg">
-      <rect width="375" height="300" fill="#D9EEF5"/>
-      <rect x="0" y="135" width="375" height="12" fill="#B0D8E8" rx="4"/>
-      <circle cx="30" cy="141" r="12" fill="#0891B2"/><circle cx="30" cy="141" r="22" fill="#0891B2" opacity=".15"/>
-      <polygon points="90,136 120,141 90,146" fill="#0891B2"/>
-      <circle cx="155" cy="141" r="7" fill="#0E7490"/><circle cx="250" cy="141" r="7" fill="#0E7490"/>
-      <circle cx="340" cy="141" r="10" fill="#164E63"/><circle cx="340" cy="141" r="18" fill="#164E63" opacity=".15"/>
-      <text x="30" y="120" text-anchor="middle" font-size="11" fill="#0891B2" font-family="sans-serif" font-weight="700">Speeder</text>
-      <text x="155" y="120" text-anchor="middle" font-size="10" fill="#64748B" font-family="sans-serif">P. Mayor</text>
-      <text x="250" y="120" text-anchor="middle" font-size="10" fill="#64748B" font-family="sans-serif">Campus</text>
-      <text x="340" y="120" text-anchor="middle" font-size="10" fill="#164E63" font-family="sans-serif" font-weight="700">Destino</text>
-      <rect x="10" y="155" width="80" height="24" rx="8" fill="#0891B2"/>
-      <text x="50" y="172" text-anchor="middle" font-size="11" fill="white" font-family="sans-serif" font-weight="600">SPD-A3</text>
+    <svg viewBox="0 0 375 260" xmlns="http://www.w3.org/2000/svg" id="tracking-svg">
+      <rect width="375" height="260" fill="#D9EEF5"/>
+      <rect x="0" y="115" width="375" height="12" fill="#B0D8E8" rx="4"/>
+      <circle cx="30" cy="121" r="10" fill="#0891B2" opacity=".3" id="stop-origin-circle"/>
+      <circle cx="155" cy="121" r="7" fill="#0E7490" id="stop-mid1"/>
+      <circle cx="250" cy="121" r="7" fill="#0E7490" id="stop-mid2"/>
+      <circle cx="340" cy="121" r="10" fill="#164E63"/>
+      <text x="30" y="100" text-anchor="middle" font-size="10" fill="#64748B" font-family="sans-serif">Gran Vía</text>
+      <text x="155" y="100" text-anchor="middle" font-size="10" fill="#64748B" font-family="sans-serif">P. Mayor</text>
+      <text x="250" y="100" text-anchor="middle" font-size="10" fill="#64748B" font-family="sans-serif">Campus</text>
+      <text x="340" y="100" text-anchor="middle" font-size="10" fill="#164E63" font-family="sans-serif" font-weight="700" id="track-dest-label">Facultad</text>
+      <g id="speeder-car">
+        <rect x="15" y="130" width="32" height="16" rx="6" fill="#0891B2"/>
+        <text x="31" y="142" text-anchor="middle" font-size="9" fill="white" font-family="sans-serif" font-weight="700">SPD</text>
+      </g>
     </svg>
-    <div class="eta-pill"><i class="ti ti-clock"></i> Llegas en <span id="countdown">12</span> min</div>
+    <div class="eta-pill" id="eta-pill"><i class="ti ti-clock"></i> <span id="eta-text">Reserva confirmada</span></div>
     <div style="position:absolute;top:10px;left:14px;cursor:pointer" onclick="goTo('screen-home','home')">
       <div style="background:#fff;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.15)"><i class="ti ti-x" style="font-size:18px;color:var(--text)"></i></div>
     </div>
   </div>
   <div class="tracking-sheet">
+    <div class="arrived-banner" id="arrived-banner">
+      <i class="ti ti-circle-check"></i>
+      <h3>¡Has llegado!</h3>
+      <p id="arrived-dest-text">Facultad de Informática</p>
+    </div>
     <div class="speeder-info">
       <div class="speeder-avatar"><i class="ti ti-bolt"></i></div>
-      <div><div style="font-size:16px;font-weight:700;color:var(--text)">SPD-A3 · Línea 3</div><div style="font-size:13px;color:var(--text-3)">Carril magnético · Accesible</div></div>
+      <div><div style="font-size:16px;font-weight:700;color:var(--text)">SPD-A3 · <span id="track-linea">Línea 3</span></div><div style="font-size:13px;color:var(--text-3)">Carril magnético</div></div>
       <div style="margin-left:auto;text-align:right"><div style="font-size:20px;font-weight:700;color:var(--teal);font-family:var(--serif)" id="countdown2">12</div><div style="font-size:11px;color:var(--text-3)">minutos</div></div>
     </div>
     <div class="tracking-steps">
-      <div class="tracking-step"><div class="step-left"><div class="step-icon done"><i class="ti ti-check"></i></div><div class="step-line done-line"></div></div><div class="step-content"><div class="step-title">Reserva confirmada</div><div class="step-sub">Speeder asignado: SPD-A3</div><div class="step-time" id="tracking-time">09:44</div></div></div>
-      <div class="tracking-step"><div class="step-left"><div class="step-icon active"><i class="ti ti-bolt"></i></div><div class="step-line"></div></div><div class="step-content"><div class="step-title">Speeder en camino</div><div class="step-sub">Gran Vía → Parada A3</div><div class="step-time">Estimado 09:44</div></div></div>
-      <div class="tracking-step"><div class="step-left"><div class="step-icon pending"><i class="ti ti-map-pin"></i></div><div class="step-line"></div></div><div class="step-content"><div class="step-title">Recogida en parada A3</div><div class="step-sub">Gran Vía, 45</div><div class="step-time">Estimado 09:44</div></div></div>
-      <div class="tracking-step"><div class="step-left"><div class="step-icon pending"><i class="ti ti-flag"></i></div></div><div class="step-content" style="padding-bottom:0"><div class="step-title">Llegada al destino</div><div class="step-sub" id="tracking-dest">Destino</div><div class="step-time">Estimado 09:56</div></div></div>
+      <div class="tracking-step" id="step1">
+        <div class="step-left"><div class="step-icon done" id="step1-icon"><i class="ti ti-check"></i></div><div class="step-line done-line" id="line1"></div></div>
+        <div class="step-content"><div class="step-title">Reserva confirmada</div><div class="step-sub">Speeder asignado: SPD-A3</div><div class="step-time" id="tracking-time">09:44</div></div>
+      </div>
+      <div class="tracking-step" id="step2">
+        <div class="step-left"><div class="step-icon pending" id="step2-icon"><i class="ti ti-map-pin"></i></div><div class="step-line" id="line2"></div></div>
+        <div class="step-content"><div class="step-title">Speeder llegando a la parada</div><div class="step-sub">Llega en 1 minuto · Parada A3</div><div class="step-time" id="step2-time">Estimado en breve</div></div>
+      </div>
+      <div class="tracking-step" id="step3">
+        <div class="step-left"><div class="step-icon pending" id="step3-icon"><i class="ti ti-bolt"></i></div><div class="step-line" id="line3"></div></div>
+        <div class="step-content"><div class="step-title">En camino</div><div class="step-sub">Gran Vía → <span id="tracking-dest">Destino</span></div><div class="step-time" id="step3-time">Estimado</div></div>
+      </div>
+      <div class="tracking-step" id="step4">
+        <div class="step-left"><div class="step-icon pending" id="step4-icon"><i class="ti ti-flag"></i></div></div>
+        <div class="step-content" style="padding-bottom:0"><div class="step-title">Llegaste a tu destino</div><div class="step-sub" id="tracking-dest2">Destino</div><div class="step-time" id="step4-time">Estimado</div></div>
+      </div>
     </div>
   </div>
 </div>
@@ -507,7 +563,7 @@
     </div>
   </div>
   <div class="content" style="padding-top:16px" id="history-list">
-    <div class="empty-state"><i class="ti ti-history"></i><p>No tienes viajes aún.<br>¡Reserva tu primer Speeder!</p></div>
+    <div class="empty-state"><i class="ti ti-history"></i><p>Cargando historial...</p></div>
   </div>
   <div class="nav-bar">
     <div class="nav-item" onclick="goTo('screen-home','home')"><i class="ti ti-home"></i><span>Inicio</span></div>
@@ -545,7 +601,7 @@
     <div class="menu-section">
       <div class="menu-section-title">Soporte</div>
       <div class="menu-item"><div class="menu-icon"><i class="ti ti-help"></i></div><div class="menu-text"><div class="menu-label">Centro de ayuda</div></div><i class="ti ti-chevron-right menu-chevron"></i></div>
-      <div class="menu-item" style="border-bottom:none" onclick="logoutUser()"><div class="menu-icon" style="background:#FEE2E2"><i class="ti ti-logout" style="color:#EF4444"></i></div><div class="menu-text"><div class="menu-label" style="color:#EF4444">Cerrar sesión</div></div></div>
+      <div class="menu-item" style="border-bottom:none" id="logout-btn"><div class="menu-icon" style="background:#FEE2E2"><i class="ti ti-logout" style="color:#EF4444"></i></div><div class="menu-text"><div class="menu-label" style="color:#EF4444">Cerrar sesión</div></div></div>
     </div>
   </div>
   <div class="nav-bar">
@@ -574,7 +630,13 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 let currentUser = null;
 let currentDestino = 'Facultad de Informática';
+let currentDist = '2.1 km';
+let currentLinea = 'Línea 3';
+let currentDur = 12;
+let currentPrecio = 1.80;
+let simInterval = null;
 
+// AUTH STATE
 onAuthStateChanged(auth, async user => {
   document.getElementById('loading').style.display = 'none';
   if (user) {
@@ -609,6 +671,7 @@ async function loadProfileStats(uid) {
   } catch(e){}
 }
 
+// REGISTER
 window.registerUser = async function() {
   const name = document.getElementById('reg-name').value.trim();
   const email = document.getElementById('reg-email').value.trim();
@@ -627,6 +690,7 @@ window.registerUser = async function() {
   }
 };
 
+// LOGIN
 window.loginUser = async function() {
   const email = document.getElementById('login-email').value.trim();
   const pass = document.getElementById('login-password').value;
@@ -641,11 +705,70 @@ window.loginUser = async function() {
   }
 };
 
-window.logoutUser = async function() {
+// LOGOUT
+document.getElementById('logout-btn').addEventListener('click', async () => {
   await signOut(auth);
   showToast('Sesión cerrada');
+});
+
+// SELECT DESTINO
+window.selectDestino = function(dest, dist, linea, dur, precio) {
+  currentDestino = dest;
+  currentDist = dist;
+  currentLinea = linea;
+  currentDur = dur;
+  currentPrecio = precio;
+  // Update results screen
+  ['result-dest-label','stop-dest','stop-dest-barato','stop-dest-acc'].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.textContent=dest;
+  });
+  document.getElementById('result-linea-pill').textContent = 'Carril magnético · ' + linea;
+  document.getElementById('opt1-time').innerHTML = dur + '<span> min</span>';
+  document.getElementById('opt1-price').innerHTML = precio.toFixed(2).replace('.',',') + ' €<span class="subtext">Precio fijo</span>';
+  document.getElementById('booking-route').textContent = 'Gran Vía → ' + dest;
+  document.getElementById('booking-dur').textContent = dur + ' min';
+  document.getElementById('booking-dist').textContent = dist;
+  document.getElementById('booking-total').textContent = precio.toFixed(2).replace('.',',') + ' €';
+  document.getElementById('btn-reservar').textContent = 'Reservar por ' + precio.toFixed(2).replace('.',',') + ' €';
+  // Clear search input
+  document.getElementById('search-dest-input').value = '';
+  filterSuggestions('');
+  applyFilter('rapido');
+  goTo('screen-results');
 };
 
+// SELECT OPTION
+window.selectOption = function(dur, precio) {
+  currentDur = dur;
+  currentPrecio = precio;
+  document.getElementById('booking-dur').textContent = dur + ' min';
+  document.getElementById('booking-total').textContent = precio.toFixed(2).replace('.',',') + ' €';
+  document.getElementById('btn-reservar').textContent = 'Reservar por ' + precio.toFixed(2).replace('.',',') + ' €';
+  goTo('screen-booking');
+};
+
+// FILTER SUGGESTIONS
+window.filterSuggestions = function(val) {
+  const items = document.querySelectorAll('#suggestions-list .suggestion-item');
+  const q = val.toLowerCase().trim();
+  items.forEach(item => {
+    const name = item.dataset.name.toLowerCase();
+    const addr = item.dataset.addr.toLowerCase();
+    item.style.display = (!q || name.includes(q) || addr.includes(q)) ? 'flex' : 'none';
+  });
+};
+
+// FILTER RESULTS
+window.applyFilter = function(type) {
+  document.querySelectorAll('.filter-chip').forEach(c=>c.classList.remove('active'));
+  document.getElementById('filter-'+type).classList.add('active');
+  document.getElementById('opt-rapido').classList.add('hidden');
+  document.getElementById('opt-barato').classList.add('hidden');
+  document.getElementById('opt-accesible').classList.add('hidden');
+  document.getElementById('opt-'+type).classList.remove('hidden');
+};
+
+// CONFIRMAR RESERVA
 window.confirmarReserva = async function() {
   if (!currentUser){showToast('Debes iniciar sesión');return;}
   const slot = document.querySelector('.time-slot.selected');
@@ -653,43 +776,152 @@ window.confirmarReserva = async function() {
   try {
     await addDoc(collection(db,'reservas'),{
       uid:currentUser.uid, origen:'Gran Vía, 45', destino:currentDestino,
-      hora, precio:1.80, duracion:12, linea:'Línea 3',
+      hora, precio:currentPrecio, duracion:currentDur, linea:currentLinea,
       fecha:new Date(), fechaStr:new Date().toLocaleDateString('es-ES')
     });
-    await updateDoc(doc(db,'users',currentUser.uid),{totalViajes:increment(1),totalKm:increment(2)});
+    await updateDoc(doc(db,'users',currentUser.uid),{totalViajes:increment(1),totalKm:increment(parseFloat(currentDist))});
+    // Setup tracking
     document.getElementById('tracking-dest').textContent = currentDestino;
+    document.getElementById('tracking-dest2').textContent = currentDestino;
+    document.getElementById('track-dest-label').textContent = currentDestino;
+    document.getElementById('track-linea').textContent = currentLinea;
+    document.getElementById('arrived-dest-text').textContent = currentDestino;
     document.getElementById('tracking-time').textContent = hora;
+    document.getElementById('tracking-time').textContent = hora;
+    document.getElementById('arrived-banner').classList.remove('show');
+    // Reset steps
+    resetSteps();
     showToast('¡Reserva confirmada! 🚀');
     goTo('screen-tracking');
+    startSimulation(currentDur);
   } catch(e) {
     showToast('Error al guardar la reserva');
+    console.error(e);
   }
 };
 
+function resetSteps() {
+  // Step 1 done always
+  document.getElementById('step1-icon').className = 'step-icon done';
+  document.getElementById('line1').className = 'step-line done-line';
+  // Steps 2,3,4 pending
+  ['step2-icon','step3-icon','step4-icon'].forEach(id=>{
+    document.getElementById(id).className='step-icon pending';
+  });
+  ['line2','line3'].forEach(id=>{
+    document.getElementById(id).className='step-line';
+  });
+  document.getElementById('eta-pill').className='eta-pill';
+  document.getElementById('eta-text').textContent='Reserva confirmada ✓';
+  document.getElementById('countdown2').textContent=currentDur;
+  if (simInterval) clearInterval(simInterval);
+}
+
+function startSimulation(totalMins) {
+  if (simInterval) clearInterval(simInterval);
+  let phase = 0;
+  // Phase 0: Confirmed (already shown)
+  // Phase 1 after 3s: Speeder llegando
+  // Phase 2 after 8s: En camino
+  // Phase 3 after (dur*1000)ms: Llegaste
+
+  setTimeout(()=>{
+    // Phase 1: Speeder llegando a la parada
+    document.getElementById('eta-text').textContent='Speeder llegando en 1 min';
+    document.getElementById('step2-icon').className='step-icon active';
+    document.getElementById('countdown2').textContent=Math.round(totalMins*0.8);
+    // Move speeder on map
+    const car = document.getElementById('speeder-car');
+    car.style.transition='transform 4s linear';
+    car.style.transform='translateX(60px)';
+  }, 3000);
+
+  setTimeout(()=>{
+    // Phase 2: En camino
+    document.getElementById('eta-text').textContent='En camino · ' + totalMins + ' min';
+    document.getElementById('step2-icon').className='step-icon done';
+    document.getElementById('line2').className='step-line done-line';
+    document.getElementById('step3-icon').className='step-icon active';
+    document.getElementById('countdown2').textContent=Math.round(totalMins*0.5);
+    const car = document.getElementById('speeder-car');
+    car.style.transition='transform 8s linear';
+    car.style.transform='translateX(200px)';
+  }, 8000);
+
+  // Countdown
+  let remaining = totalMins;
+  simInterval = setInterval(()=>{
+    if(remaining>1){
+      remaining--;
+      document.getElementById('countdown2').textContent=remaining;
+    }
+  }, (totalMins*1000)/totalMins);
+
+  setTimeout(()=>{
+    // Phase 3: Llegaste
+    clearInterval(simInterval);
+    document.getElementById('eta-text').textContent='¡Llegaste a tu destino! 🎉';
+    document.getElementById('eta-pill').className='eta-pill success';
+    document.getElementById('step3-icon').className='step-icon done';
+    document.getElementById('line3').className='step-line done-line';
+    document.getElementById('step4-icon').className='step-icon done';
+    document.getElementById('countdown2').textContent='0';
+    document.getElementById('arrived-banner').classList.add('show');
+    const car = document.getElementById('speeder-car');
+    car.style.transition='transform 2s linear';
+    car.style.transform='translateX(290px)';
+    showToast('¡Has llegado a ' + currentDestino + '! 🎉');
+  }, 18000);
+}
+
+// LOAD HISTORY
 window.loadHistory = async function() {
   if (!currentUser) return;
   const list = document.getElementById('history-list');
-  list.innerHTML = '<div style="text-align:center;padding:30px;color:var(--text-3)"><i class="ti ti-loader" style="font-size:28px"></i><p>Cargando...</p></div>';
+  list.innerHTML = '<div style="text-align:center;padding:30px;color:var(--text-3)"><i class="ti ti-loader" style="font-size:28px"></i><p style="margin-top:8px">Cargando...</p></div>';
   try {
-    const q = query(collection(db,'reservas'),where('uid','==',currentUser.uid),orderBy('fecha','desc'));
+    const q = query(
+      collection(db,'reservas'),
+      where('uid','==',currentUser.uid),
+      orderBy('fecha','desc')
+    );
     const snap = await getDocs(q);
-    if (snap.empty){list.innerHTML='<div class="empty-state"><i class="ti ti-history"></i><p>No tienes viajes aún.<br>¡Reserva tu primer Speeder!</p></div>';return;}
+    if (snap.empty) {
+      list.innerHTML='<div class="empty-state"><i class="ti ti-history"></i><p>No tienes viajes aún.<br>¡Reserva tu primer Speeder!</p></div>';
+      return;
+    }
     let html='';
     snap.forEach(d=>{
       const r=d.data();
-      const fecha=r.fecha?.toDate?r.fecha.toDate().toLocaleDateString('es-ES',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}):r.fechaStr;
+      let fecha='';
+      try { fecha=r.fecha.toDate().toLocaleDateString('es-ES',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}); }
+      catch(e){ fecha=r.fechaStr||''; }
+      const precio = typeof r.precio==='number' ? r.precio.toFixed(2).replace('.',',') : '1,80';
       html+=`<div class="history-item">
-        <div class="hist-header"><div class="hist-date"><i class="ti ti-calendar" style="font-size:12px"></i> ${fecha}</div><div class="hist-price">${r.precio?.toFixed(2).replace('.',',')} €</div></div>
-        <div class="hist-route"><div class="hist-place">${r.origen}</div><div class="hist-arr">→</div><div class="hist-place">${r.destino}</div></div>
-        <div class="hist-footer"><div class="hist-tag"><i class="ti ti-clock"></i> ${r.duracion} min</div><div class="hist-tag" style="color:var(--success)"><i class="ti ti-check"></i> Puntual</div><div class="hist-tag">${r.linea}</div></div>
+        <div class="hist-header">
+          <div class="hist-date"><i class="ti ti-calendar" style="font-size:12px"></i> ${fecha}</div>
+          <div class="hist-price">${precio} €</div>
+        </div>
+        <div class="hist-route">
+          <div class="hist-place">${r.origen||'Gran Vía'}</div>
+          <div class="hist-arr">→</div>
+          <div class="hist-place">${r.destino||'Destino'}</div>
+        </div>
+        <div class="hist-footer">
+          <div class="hist-tag"><i class="ti ti-clock"></i> ${r.duracion||12} min</div>
+          <div class="hist-tag" style="color:var(--success)"><i class="ti ti-check"></i> Puntual</div>
+          <div class="hist-tag">${r.linea||'Línea 3'}</div>
+        </div>
       </div>`;
     });
     list.innerHTML=html;
   } catch(e){
-    list.innerHTML='<div class="empty-state"><i class="ti ti-alert-circle"></i><p>Error al cargar el historial</p></div>';
+    console.error(e);
+    list.innerHTML='<div class="empty-state"><i class="ti ti-alert-circle"></i><p>Error al cargar el historial.<br>Inténtalo de nuevo.</p></div>';
   }
 };
 
+// NAVIGATION
 window.goTo = function(screenId, activeNav) {
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   const t=document.getElementById(screenId);
@@ -704,13 +936,6 @@ window.goTo = function(screenId, activeNav) {
   if(activeNav==='history') loadHistory();
 };
 
-window.selectDestino = function(dest) {
-  currentDestino=dest;
-  ['result-dest-label','stop-dest','stop-dest2'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=dest;});
-  document.getElementById('booking-route').textContent='Gran Vía → '+dest;
-  goTo('screen-results');
-};
-
 window.selectTime = function(el) {
   document.querySelectorAll('.time-slot').forEach(s=>s.classList.remove('selected'));
   el.classList.add('selected');
@@ -721,12 +946,6 @@ window.showToast = function(msg) {
   t.textContent=msg;t.classList.add('show');
   setTimeout(()=>t.classList.remove('show'),3000);
 };
-
-let mins=12;
-setInterval(()=>{
-  if(mins>1)mins--;
-  ['countdown','countdown2'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=mins;});
-},8000);
 </script>
 </body>
 </html>
