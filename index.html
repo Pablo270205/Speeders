@@ -557,9 +557,9 @@
   <div style="padding:0 20px 16px;border-bottom:1px solid var(--border);background:var(--surface);flex-shrink:0">
     <div style="font-family:var(--serif);font-size:26px;color:var(--text);margin-bottom:12px">Historial</div>
     <div style="display:flex;gap:8px">
-      <div class="filter-chip active">Todos</div>
-      <div class="filter-chip">Esta semana</div>
-      <div class="filter-chip">Este mes</div>
+      <div class="filter-chip active" onclick="filtrarHistorial(this,'todos')">Todos</div>
+      <div class="filter-chip" onclick="filtrarHistorial(this,'semana')">Esta semana</div>
+      <div class="filter-chip" onclick="filtrarHistorial(this,'mes')">Este mes</div>
     </div>
   </div>
   <div class="content" style="padding-top:16px" id="history-list">
@@ -672,7 +672,7 @@ async function loadProfileStats(uid) {
 }
 
 // REGISTER
-window.registerUser = async function() {
+window.registerUser = async function(filtro='todos') {
   const name = document.getElementById('reg-name').value.trim();
   const email = document.getElementById('reg-email').value.trim();
   const pass = document.getElementById('reg-password').value;
@@ -883,7 +883,7 @@ window.loadHistory = async function() {
     const q = query(
       collection(db,'reservas'),
       where('uid','==',currentUser.uid),
-      orderBy('fecha','desc')
+      
     );
     const snap = await getDocs(q);
     if (snap.empty) {
@@ -939,6 +939,12 @@ window.goTo = function(screenId, activeNav) {
 window.selectTime = function(el) {
   document.querySelectorAll('.time-slot').forEach(s=>s.classList.remove('selected'));
   el.classList.add('selected');
+};
+
+window.filtrarHistorial = function(el, tipo) {
+  document.querySelectorAll('#screen-history .filter-chip').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  loadHistory(tipo);
 };
 
 window.showToast = function(msg) {
