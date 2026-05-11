@@ -2,7 +2,7 @@
   "name": "Speeders",
   "short_name": "Speeders",
   "description": "Movilidad urbana predecible en carriles magnéticos",
-  "start_url": "/index.html",
+  "start_url": "/Speeders/index.html",
   "display": "standalone",
   "background_color": "#164E63",
   "theme_color": "#0891B2",
