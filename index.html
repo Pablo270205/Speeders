@@ -310,7 +310,7 @@
 <!-- HOME -->
 <div class="screen" id="screen-home">
   <div class="home-header">
-    <div class="status-bar"><span class="time">9:41</span><div class="status-icons"><i class="ti ti-wifi"></i><i class="ti ti-battery-2"></i></div></div>
+    <div class="status-bar"><span class="time" id="clock-display"></span><div class="status-icons"><i class="ti ti-wifi"></i><i class="ti ti-battery-2"></i></div></div>
     <div class="home-greeting">Buenos días 👋</div>
     <div class="home-name" id="home-username">Usuario</div>
     <div class="home-search-box" onclick="goTo('screen-search','search')"><i class="ti ti-search"></i><span>¿A dónde vas hoy?</span></div>
@@ -359,14 +359,14 @@
 
 <!-- SEARCH -->
 <div class="screen" id="screen-search">
-  <div class="status-bar" style="background:var(--surface)"><span class="time">9:41</span><div class="status-icons"><i class="ti ti-wifi"></i><i class="ti ti-battery-2"></i></div></div>
+  <div class="status-bar" style="background:var(--surface)"><span class="time" id="clock-display"></span><div class="status-icons"><i class="ti ti-wifi"></i><i class="ti ti-battery-2"></i></div></div>
   <div class="search-header">
     <div class="search-bar-row">
       <span class="back-btn" onclick="goTo('screen-home','home')"><i class="ti ti-arrow-left"></i></span>
       <span style="font-family:var(--serif);font-size:20px;color:var(--text)">Nueva ruta</span>
     </div>
     <div class="route-inputs">
-      <div class="route-row"><div class="route-dot origin"></div><input type="text" value="Gran Vía, 45" placeholder="Origen" readonly></div>
+      <div class="route-row"><div class="route-dot origin"></div><input type="text" value="Gran Vía, 45" placeholder="Origen" id="search-origin"></div>
       <div class="route-divider"></div>
       <div class="route-row"><div class="route-dot dest"></div><input type="text" placeholder="¿A dónde vas?" id="search-dest-input" oninput="filterSuggestions(this.value)"></div>
     </div>
@@ -455,7 +455,7 @@
 <!-- BOOKING -->
 <div class="screen" id="screen-booking">
   <div class="booking-header">
-    <div class="status-bar"><span class="time">9:41</span><div class="status-icons"><i class="ti ti-wifi"></i><i class="ti ti-battery-2"></i></div></div>
+    <div class="status-bar"><span class="time" id="clock-display"></span><div class="status-icons"><i class="ti ti-wifi"></i><i class="ti ti-battery-2"></i></div></div>
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
       <span style="cursor:pointer;color:rgba(255,255,255,.7)" onclick="goTo('screen-results')"><i class="ti ti-arrow-left"></i></span>
       <div class="booking-title">Confirmar reserva</div>
@@ -553,7 +553,7 @@
 
 <!-- HISTORY -->
 <div class="screen" id="screen-history">
-  <div class="status-bar"><span class="time">9:41</span><div class="status-icons"><i class="ti ti-wifi"></i><i class="ti ti-battery-2"></i></div></div>
+  <div class="status-bar"><span class="time" id="clock-display"></span><div class="status-icons"><i class="ti ti-wifi"></i><i class="ti ti-battery-2"></i></div></div>
   <div style="padding:0 20px 16px;border-bottom:1px solid var(--border);background:var(--surface);flex-shrink:0">
     <div style="font-family:var(--serif);font-size:26px;color:var(--text);margin-bottom:12px">Historial</div>
     <div style="display:flex;gap:8px">
@@ -576,7 +576,7 @@
 <!-- PROFILE -->
 <div class="screen" id="screen-profile">
   <div class="profile-hero">
-    <div class="status-bar"><span class="time">9:41</span><div class="status-icons"><i class="ti ti-wifi"></i><i class="ti ti-battery-2"></i></div></div>
+    <div class="status-bar"><span class="time" id="clock-display"></span><div class="status-icons"><i class="ti ti-wifi"></i><i class="ti ti-battery-2"></i></div></div>
     <div class="avatar-circle" id="profile-avatar">?</div>
     <div class="profile-name" id="profile-name">Usuario</div>
     <div class="profile-email" id="profile-email">email@ejemplo.com</div>
@@ -946,6 +946,15 @@ window.filtrarHistorial = function(el, tipo) {
   el.classList.add('active');
   loadHistory(tipo);
 };
+
+function updateClock() {
+  const now = new Date();
+  const h = now.getHours().toString().padStart(2,'0');
+  const m = now.getMinutes().toString().padStart(2,'0');
+  document.querySelectorAll('#clock-display').forEach(el => el.textContent = h + ':' + m);
+}
+updateClock();
+setInterval(updateClock, 10000);
 
 window.showToast = function(msg) {
   const t=document.getElementById('toast');
