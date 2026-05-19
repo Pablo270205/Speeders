@@ -520,6 +520,11 @@
     </div>
   </div>
   <div class="tracking-sheet">
+    <div id="cancel-btn-area" style="margin-bottom:12px">
+      <button onclick="cancelarReserva()" style="background:#FEE2E2;color:#EF4444;border:1.5px solid #EF4444;border-radius:100px;padding:12px 24px;font-size:15px;font-weight:600;font-family:var(--sans);width:100%;cursor:pointer">
+        <i class="ti ti-x"></i> Cancelar reserva
+      </button>
+    </div>
     <div class="arrived-banner" id="arrived-banner">
       <i class="ti ti-circle-check"></i>
       <h3>¡Has llegado!</h3>
@@ -972,6 +977,14 @@ window.addEventListener('popstate', function() {
 });
 
 window.addEventListener('load', () => history.pushState({}, ''));
+
+window.cancelarReserva = async function() {
+  const confirmar = confirm('¿Seguro que quieres cancelar la reserva? Se aplicará la política de cancelación.');
+  if (!confirmar) return;
+  document.getElementById('cancel-btn-area').style.display = 'none';
+  showToast('Reserva cancelada');
+  setTimeout(() => goTo('screen-home','home'), 1500);
+};
 
 window.showToast = function(msg) {
   const t=document.getElementById('toast');
