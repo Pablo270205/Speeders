@@ -771,6 +771,8 @@ window.applyFilter = function(type) {
 // CONFIRMAR RESERVA
 window.confirmarReserva = async function() {
   if (!currentUser){showToast('Debes iniciar sesión');return;}
+  const confirmar = confirm(`¿Confirmas la reserva?\n\nRuta: Gran Vía → ${currentDestino}\nHora: ${document.querySelector('.time-slot.selected')?.querySelector('.t-time')?.textContent || '09:44'}\nPrecio: ${currentPrecio.toFixed(2).replace('.',',')} €`);
+  if (!confirmar) return;
   const slot = document.querySelector('.time-slot.selected');
   const hora = slot ? slot.querySelector('.t-time').textContent : '09:44';
   try {
