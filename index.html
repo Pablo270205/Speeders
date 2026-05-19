@@ -29,9 +29,9 @@
     .status-bar{height:44px;padding:12px 24px 0;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
     .status-bar .time{font-size:15px;font-weight:600;color:var(--text)}
     .status-icons{display:flex;gap:6px;align-items:center}
-    .nav-bar{position:fixed;bottom:0;left:0;right:0;height:80px;background:var(--surface);border-top:1px solid var(--border);display:flex;align-items:flex-start;padding-top:10px;z-index:1000}
+    .nav-bar{position:fixed;bottom:0;left:0;right:0;height:86px;background:var(--surface);border-top:1px solid var(--border);display:flex;align-items:flex-start;padding-top:10px;z-index:1000}
     .nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;padding:4px 0}
-    .nav-item i{font-size:22px;color:var(--text-3);transition:color .2s}
+    .nav-item i{font-size:26px;color:#64748B;;transition:color .2s}
     .nav-item span{font-size:11px;color:var(--text-3);font-weight:500;transition:color .2s}
     .nav-item.active i,.nav-item.active span{color:var(--teal)}
     .content{flex:1;padding:0 20px;padding-bottom:90px}
@@ -955,6 +955,21 @@ function updateClock() {
 }
 updateClock();
 setInterval(updateClock, 10000);
+
+window.addEventListener('popstate', function() {
+  const active = document.querySelector('.screen.active');
+  if (!active) return;
+  const id = active.id;
+  if (id === 'screen-results') goTo('screen-search','search');
+  else if (id === 'screen-booking') goTo('screen-results','search');
+  else if (id === 'screen-tracking') goTo('screen-home','home');
+  else if (id === 'screen-search') goTo('screen-home','home');
+  else if (id === 'screen-history') goTo('screen-home','home');
+  else if (id === 'screen-profile') goTo('screen-home','home');
+  else goTo('screen-home','home');
+});
+
+window.addEventListener('load', () => history.pushState({}, ''));
 
 window.showToast = function(msg) {
   const t=document.getElementById('toast');
