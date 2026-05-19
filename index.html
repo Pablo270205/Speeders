@@ -796,6 +796,7 @@ window.confirmarReserva = async function() {
     document.getElementById('tracking-time').textContent = hora;
     document.getElementById('tracking-time').textContent = hora;
     document.getElementById('arrived-banner').classList.remove('show');
+    document.getElementById('cancel-btn-area').style.display = 'block';
     // Reset steps
     resetSteps();
     showToast('¡Reserva confirmada! 🚀');
